@@ -1,15 +1,12 @@
+import { League } from "@/generated/prisma";
 import db from "./db";
 
 export async function getAPlayers() {
     const players = await db.player.findMany({
         where: {
-            league: "A",
+            league: League.A,
         },
-        select: {
-            seasonWins: true,
-            seasonLosses: true,
-            name: true,
-        },
+        orderBy: { seasonWins: "desc" },
     });
 
     return players;
@@ -18,13 +15,9 @@ export async function getAPlayers() {
 export async function getBPlayers() {
     const players = await db.player.findMany({
         where: {
-            league: "B",
+            league: League.B,
         },
-        select: {
-            seasonWins: true,
-            seasonLosses: true,
-            name: true,
-        },
+        orderBy: { seasonWins: "desc" },
     });
 
     return players;
