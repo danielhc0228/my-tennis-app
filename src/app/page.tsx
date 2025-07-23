@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
-import Link from "next/link";
+import Tab from "@/components/tab";
 
 export default function HomePage() {
     const [showTab, setShowTab] = useState(false);
@@ -24,41 +24,29 @@ export default function HomePage() {
                     )}
                 </button>
             </div>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                <div className='bg-white p-4 shadow rounded-md text-black'>
+                    <h2 className='text-lg font-semibold mb-2'>League A</h2>
+                    <p>Table goes here</p>
+                </div>
+                <div className='bg-white p-4 shadow rounded-md text-black'>
+                    <h2 className='text-lg font-semibold mb-2'>League B</h2>
+                    <p>Table goes here</p>
+                </div>
+            </div>
 
             {/* Side Tab Panel */}
             {showTab && (
-                <div className='absolute top-0 right-0 w-64 h-full bg-white shadow-lg z-50 p-4'>
+                <>
                     <button
                         onClick={() => {
                             setShowTab(false);
                         }}
                     >
-                        <XMarkIcon className='absolute right-5 size-6 top-5 text-gray-700' />
+                        <XMarkIcon className='absolute size-8 right-5 top-5 text-gray-700 z-51' />
                     </button>
-
-                    <div className='flex flex-col space-y-4'>
-                        <Link href={"/"}>
-                            <button className='text-left text-gray-700 hover:text-blue-500'>
-                                Overview
-                            </button>
-                        </Link>
-                        <Link href={"/league-a"}>
-                            <button className='text-left text-gray-700 hover:text-blue-500'>
-                                League A
-                            </button>
-                        </Link>
-                        <Link href={"/league-b"}>
-                            <button className='text-left text-gray-700 hover:text-blue-500'>
-                                League B
-                            </button>
-                        </Link>
-                        <Link href={"/matches"}>
-                            <button className='text-left text-gray-700 hover:text-blue-500'>
-                                Matches
-                            </button>
-                        </Link>
-                    </div>
-                </div>
+                    <Tab />
+                </>
             )}
         </div>
     );
