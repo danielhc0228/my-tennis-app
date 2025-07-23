@@ -4,9 +4,13 @@
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import Tab from "@/components/tab";
+import { getAPlayers, getBPlayers } from "../../lib/prismaFunctions";
 
 export default function HomePage() {
     const [showTab, setShowTab] = useState(false);
+
+    const aPlayers = getAPlayers();
+    const bPlayers = getBPlayers();
 
     return (
         <div className='relative min-h-screen p-4 bg-blue-950'>
