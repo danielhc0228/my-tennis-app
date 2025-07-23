@@ -10,6 +10,37 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
+}
+
+// schema.prisma
+
+model Player {
+  id               Int      @id @default(autoincrement())
+  name             String
+  league           League
+  seasonWins       Int      @default(0) // Wins in current season
+  seasonLosses     Int      @default(0) // Losses in current season
+  totalWins        Int      @default(0) // Cumulative wins across all seasons
+  totalLosses      Int      @default(0) // Cumulative losses across all seasons
+  matchesAsPlayer1 Match[]  @relation("Player1Matches")
+  matchesAsPlayer2 Match[]  @relation("Player2Matches")
+  createdAt        DateTime @default(now())
+}
+
+model Match {
+  id        Int      @id @default(autoincrement())
+  player1   Player   @relation("Player1Matches", fields: [player1Id], references: [id])
+  player1Id Int
+  player2   Player   @relation("Player2Matches", fields: [player2Id], references: [id])
+  player2Id Int
+  winnerId  Int // Either player1Id or player2Id
+  season    Int // Helps reset data per season
+  matchDate DateTime @default(now())
+}
+
+enum League {
+  A
+  B
 }
