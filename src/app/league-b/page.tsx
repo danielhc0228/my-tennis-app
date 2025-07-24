@@ -1,7 +1,7 @@
-import TableA from "@/components/table-a";
+import TableB from "@/components/table-b";
 import { Suspense } from "react";
 
-export default function LeagueA() {
+export default function LeagueB() {
     return (
         <div className='relative min-h-screen p-4 bg-blue-950'>
             {/* Header Section */}
@@ -11,7 +11,7 @@ export default function LeagueA() {
                 </div>
             </div>
             <Suspense fallback={"Loading"}>
-                <TableA />
+                <TableB />
             </Suspense>
         </div>
     );
