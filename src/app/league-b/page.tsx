@@ -1,5 +1,4 @@
 import TableB from "@/components/table-b";
-import { Suspense } from "react";
 
 export default function LeagueB() {
     return (
@@ -10,9 +9,7 @@ export default function LeagueB() {
                     Tennis League
                 </div>
             </div>
-            <Suspense fallback={"Loading"}>
-                <TableB />
-            </Suspense>
+            <TableB />
         </div>
     );
 }
