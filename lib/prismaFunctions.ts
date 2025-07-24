@@ -1,4 +1,4 @@
-import { League } from "@/generated/prisma";
+import { League } from "@prisma/client";
 import db from "./db";
 
 export async function getAPlayers() {

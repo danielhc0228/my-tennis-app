@@ -10,6 +10,8 @@ interface IMatch {
     player2: {
         name: string;
     };
+    player1Score: number;
+    player2Score: number;
     winnerId: number;
     season: number;
     matchDate: Date;
@@ -30,10 +32,10 @@ export default async function MatchesPage() {
                 <table className='w-full border-collapse'>
                     <tbody>
                         {matches.map((match) => {
-                            // const aWon =
-                            //     match.playerAScore > match.playerBScore;
-                            // const bWon =
-                            //     match.playerBScore > match.playerAScore;
+                            const aWon =
+                                match.player1Score > match.player2Score;
+                            const bWon =
+                                match.player2Score > match.player1Score;
 
                             return (
                                 <tr
@@ -41,7 +43,7 @@ export default async function MatchesPage() {
                                     className='border-b border-gray-300'
                                 >
                                     {/* Player A side */}
-                                    {/* <td className='p-4 text-right w-1/3'>
+                                    <td className='p-4 text-right w-1/3'>
                                         <div className='flex flex-col items-end'>
                                             <span
                                                 className={`font-semibold ${
@@ -54,16 +56,16 @@ export default async function MatchesPage() {
                                             </span>
                                             <span>{match.player1.name}</span>
                                         </div>
-                                    </td> */}
+                                    </td>
 
                                     {/* Score */}
                                     <td className='p-4 text-center text-lg font-medium w-1/3'>
-                                        {/* {match.playerAScore} -{" "}
-                                        {match.playerBScore} */}
+                                        {match.player1Score} -{" "}
+                                        {match.player2Score}
                                     </td>
 
                                     {/* Player B side */}
-                                    {/* <td className='p-4 text-left w-1/3'>
+                                    <td className='p-4 text-left w-1/3'>
                                         <div className='flex flex-col items-start'>
                                             <span
                                                 className={`font-semibold ${
@@ -76,7 +78,7 @@ export default async function MatchesPage() {
                                             </span>
                                             <span>{match.player2.name}</span>
                                         </div>
-                                    </td> */}
+                                    </td>
                                 </tr>
                             );
                         })}
