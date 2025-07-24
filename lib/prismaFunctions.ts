@@ -22,3 +22,22 @@ export async function getBPlayers() {
 
     return players;
 }
+
+export async function getMatches() {
+    const matches = await db.match.findMany({
+        include: {
+            player1: {
+                select: {
+                    name: true,
+                },
+            },
+            player2: {
+                select: {
+                    name: true,
+                },
+            },
+        },
+    });
+
+    return matches;
+}
