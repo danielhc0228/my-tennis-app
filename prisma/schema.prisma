@@ -30,14 +30,23 @@ model Player {
 }
 
 model Match {
-  id        Int      @id @default(autoincrement())
-  player1   Player   @relation("Player1Matches", fields: [player1Id], references: [id])
+  id Int @id @default(autoincrement())
+
+  player1   Player @relation("Player1Matches", fields: [player1Id], references: [id])
   player1Id Int
-  player2   Player   @relation("Player2Matches", fields: [player2Id], references: [id])
+
+  player2   Player @relation("Player2Matches", fields: [player2Id], references: [id])
   player2Id Int
-  winnerId  Int // Either player1Id or player2Id
-  season    Int // Helps reset data per season
+
+  winnerId Int
+
+  player1Score Int
+  player2Score Int
+
+  season    Int
   matchDate DateTime @default(now())
+
+  @@index([season])
 }
 
 enum League {
