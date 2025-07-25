@@ -50,9 +50,13 @@ export async function submitMatch(formData: FormData) {
     const player2Id = Number(formData.get("player2Id"));
     const player1Score = Number(formData.get("player1Score"));
     const player2Score = Number(formData.get("player2Score"));
-    const season = Number(formData.get("season"));
 
     const winnerId = player1Score > player2Score ? player1Id : player2Id;
+
+    const config = await db.config.findUnique({
+        where: { key: "CURRENT_SEASON" },
+    });
+    const currentSeason = parseInt(config?.value ?? "1", 10);
 
     await db.match.create({
         data: {
@@ -61,7 +65,7 @@ export async function submitMatch(formData: FormData) {
             player1Score,
             player2Score,
             winnerId,
-            season: season, // use context or constant
+            season: currentSeason, // use context or constant
         },
     });
 
@@ -86,5 +90,7 @@ export async function submitMatch(formData: FormData) {
         });
     }
 
-    revalidatePath("/league/a"); // or b
+    revalidatePath("/league-a");
+    revalidatePath("/league-b");
+    revalidatePath("/");
 }

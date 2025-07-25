@@ -49,6 +49,12 @@ model Match {
   @@index([season])
 }
 
+model Config {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String
+}
+
 enum League {
   A
   B

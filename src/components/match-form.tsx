@@ -1,3 +1,5 @@
+"use client";
+
 import { submitMatch } from "@/lib/prismaFunctions";
 import { useState } from "react";
 
@@ -64,7 +66,6 @@ export default function MatchForm({ players }: MatchFormProps) {
                     className='w-20 border rounded p-2'
                     required
                 />
-                <input type={"hidden"} name='season' value={players.season} />
 
                 <button
                     type='submit'
