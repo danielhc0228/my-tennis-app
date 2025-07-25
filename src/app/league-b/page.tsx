@@ -1,14 +1,14 @@
+import MatchForm from "@/components/match-form";
 import TableB from "@/components/table-b";
+import { getBPlayers } from "@/lib/prismaFunctions";
 
-export default function LeagueB() {
+export default async function LeagueB() {
+    const players = await getBPlayers();
+
     return (
-        <div className='relative min-h-screen p-4 bg-blue-950'>
-            {/* Header Section */}
-            <div className='flex justify-between items-center mb-4'>
-                <div className='text-xl font-bold text-black'>
-                    Tennis League
-                </div>
-            </div>
+        <div>
+            <h1 className='text-xl font-bold mb-4'>League A</h1>
+            <MatchForm players={players} />
             <TableB />
         </div>
     );
