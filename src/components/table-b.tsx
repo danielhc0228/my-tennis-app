@@ -1,6 +1,6 @@
 // app/components/TableA.tsx
 import { Player } from "@prisma/client";
-import { getBPlayers } from "../../lib/prismaFunctions";
+import { getBPlayers } from "../lib/prismaFunctions";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
 export default async function TableB() {

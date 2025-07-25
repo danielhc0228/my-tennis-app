@@ -1,5 +1,5 @@
 import { Player } from "@prisma/client";
-import { getAPlayers } from "../../lib/prismaFunctions";
+import { getAPlayers } from "../lib/prismaFunctions";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
 export default async function TableA() {

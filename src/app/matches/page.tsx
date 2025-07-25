@@ -1,4 +1,4 @@
-import { getMatches } from "../../../lib/prismaFunctions";
+import { getMatches } from "../../lib/prismaFunctions";
 import MatchesPage from "../../components/MatchesPage";
 
 export default async function Matches() {
