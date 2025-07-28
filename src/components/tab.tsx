@@ -16,18 +16,27 @@ import { usePathname } from "next/navigation";
 export default function TabBar() {
     const pathname = usePathname();
     return (
-        <div className='fixed bottom-0 mx-auto grid w-full max-w-screen-sm grid-cols-4 border-t border-neutral-600 bg-neutral-800 px-5 py-3 *:text-white'>
-            <Link href='/' className='flex flex-col items-center gap-px'>
+        <div className='fixed bottom-0 mx-auto grid w-full max-w-screen-sm grid-cols-4 border-t border-neutral-200 bg-white px-5 py-3'>
+            <Link
+                href='/'
+                className={`flex flex-col items-center gap-0.5 ${
+                    pathname === "/" ? "text-blue-600" : "text-neutral-500"
+                }`}
+            >
                 {pathname === "/" ? (
                     <SolidHomeIcon className='h-7 w-7' />
                 ) : (
                     <OutlineHomeIcon className='h-7 w-7' />
                 )}
-                <span>Overview</span>
+                <span className='text-sm font-medium'>Overview</span>
             </Link>
             <Link
                 href='/league-a'
-                className='flex flex-col items-center gap-px'
+                className={`flex flex-col items-center gap-0.5 ${
+                    pathname === "/league-a"
+                        ? "text-blue-600"
+                        : "text-neutral-500"
+                }`}
             >
                 {pathname === "/league-a" ? (
                     <SolidTrophyIcon className='h-7 w-7' />
@@ -38,7 +47,11 @@ export default function TabBar() {
             </Link>
             <Link
                 href='/league-b'
-                className='flex flex-col items-center gap-px'
+                className={`flex flex-col items-center gap-0.5 ${
+                    pathname === "/league-b"
+                        ? "text-blue-600"
+                        : "text-neutral-500"
+                }`}
             >
                 {pathname === "/league-b" ? (
                     <SolidTrophyIcon className='h-7 w-7' />
@@ -47,7 +60,14 @@ export default function TabBar() {
                 )}
                 <span>League B</span>
             </Link>
-            <Link href='/matches' className='flex flex-col items-center gap-px'>
+            <Link
+                href='/matches'
+                className={`flex flex-col items-center gap-0.5 ${
+                    pathname === "/matches"
+                        ? "text-blue-600"
+                        : "text-neutral-500"
+                }`}
+            >
                 {pathname === "/matches" ? (
                     <SolidClipboardDocumentListIcon className='h-7 w-7' />
                 ) : (
