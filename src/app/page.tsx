@@ -5,9 +5,7 @@ export default function HomePage() {
         <div className='relative min-h-screen p-4 bg-slate-100'>
             {/* Header Section */}
             <div className='flex justify-between items-center mb-4'>
-                <div className='text-xl font-bold text-black'>
-                    Tennis League
-                </div>
+                <div className='text-xl font-bold text-black'>HTP League</div>
             </div>
             <TableWrapper />
         </div>
