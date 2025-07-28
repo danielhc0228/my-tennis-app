@@ -58,6 +58,8 @@ export default function MatchForm({ players }: MatchFormProps) {
                     type='number'
                     placeholder='P1 Score'
                     className='p-3 border rounded-lg w-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    min={0}
+                    max={7}
                     required
                 />
                 <input
@@ -65,6 +67,8 @@ export default function MatchForm({ players }: MatchFormProps) {
                     type='number'
                     placeholder='P2 Score'
                     className='p-3 border rounded-lg w-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    min={0}
+                    max={7}
                     required
                 />
 
