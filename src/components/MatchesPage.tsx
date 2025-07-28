@@ -32,7 +32,7 @@ export default function MatchesPage({ allMatches }: { allMatches: IMatch[] }) {
     ).sort((a, b) => b - a); // descending
 
     return (
-        <div>
+        <div className='bg-slate-100 min-h-screen'>
             <label htmlFor='season-select' className='mr-2 font-medium'>
                 Season:
             </label>

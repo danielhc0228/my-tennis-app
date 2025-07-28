@@ -6,9 +6,14 @@ export default async function LeagueB() {
     const players = await getBPlayers();
 
     return (
-        <div>
-            <h1 className='text-xl font-bold mb-4'>League A</h1>
-            <MatchForm players={players} />
+        <div className='max-w-4xl mx-auto px-4 py-8 bg-slate-100 min-h-screen'>
+            <h1 className='text-3xl font-bold mb-6 text-center text-blue-800'>
+                League B
+            </h1>
+
+            <div className='bg-white p-6 rounded-xl shadow-md mb-8'>
+                <MatchForm players={players} />
+            </div>
             <TableB />
         </div>
     );

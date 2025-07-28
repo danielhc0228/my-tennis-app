@@ -6,7 +6,7 @@ export default async function LeagueA() {
     const players = await getAPlayers();
 
     return (
-        <div className='max-w-4xl mx-auto px-4 py-8'>
+        <div className='max-w-4xl mx-auto px-4 py-8 bg-slate-100 min-h-screen'>
             <h1 className='text-3xl font-bold mb-6 text-center text-blue-800'>
                 League A
             </h1>
