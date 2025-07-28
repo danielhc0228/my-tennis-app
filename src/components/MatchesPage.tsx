@@ -32,22 +32,27 @@ export default function MatchesPage({ allMatches }: { allMatches: IMatch[] }) {
     ).sort((a, b) => b - a); // descending
 
     return (
-        <div className='bg-slate-100 min-h-screen'>
-            <label htmlFor='season-select' className='mr-2 font-medium'>
-                Season:
-            </label>
-            <select
-                id='season-select'
-                value={season}
-                onChange={(e) => setSeason(Number(e.target.value))}
-                className='border p-2 rounded'
-            >
-                {seasons.map((s) => (
-                    <option key={s} value={s}>
-                        {s}
-                    </option>
-                ))}
-            </select>
+        <div className='flex flex-col bg-slate-100 min-h-screen text-gray-900'>
+            <div className='m-6 bg-white shadow-md rounded-xl px-5 py-3 flex items-center gap-4'>
+                <label
+                    htmlFor='season-select'
+                    className='text-gray-700 text-base font-semibold'
+                >
+                    Select Season
+                </label>
+                <select
+                    id='season-select'
+                    value={season}
+                    onChange={(e) => setSeason(Number(e.target.value))}
+                    className='border border-gray-300 rounded-lg px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                >
+                    {seasons.map((s) => (
+                        <option key={s} value={s}>
+                            {`Season ${s}`}
+                        </option>
+                    ))}
+                </select>
+            </div>
 
             {/* Render filtered matches */}
             <table className='mt-4 w-full'>
