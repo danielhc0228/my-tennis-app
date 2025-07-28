@@ -1,14 +1,19 @@
 import MatchForm from "@/components/match-form";
 import TableB from "@/components/table-b";
+import db from "@/lib/db";
 import { getBPlayers } from "@/lib/prismaFunctions";
 
 export default async function LeagueB() {
     const players = await getBPlayers();
+    const config = await db.config.findUnique({
+        where: { key: "CURRENT_SEASON" },
+    });
+    const currentSeason = parseInt(config?.value ?? "1", 10);
 
     return (
         <div className='max-w-4xl mx-auto px-4 py-8 bg-slate-100 min-h-screen'>
             <h1 className='text-3xl font-bold mb-6 text-center text-blue-900'>
-                Table
+                {`Season ${currentSeason}`}
             </h1>
             <TableB />
 
