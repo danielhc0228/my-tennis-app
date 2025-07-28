@@ -7,8 +7,8 @@ export default async function TableA() {
 
     return (
         <div className='bg-white p-6 rounded-xl shadow-md text-black'>
-            <h2 className='text-2xl font-semibold mb-4 text-blue-700'>
-                Standings
+            <h2 className='text-2xl font-semibold mb-4 text-blue-900'>
+                League A
             </h2>
 
             <table className='w-full table-auto'>
