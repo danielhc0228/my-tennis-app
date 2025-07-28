@@ -24,53 +24,58 @@ export default function MatchForm({ players }: MatchFormProps) {
     return (
         <form action={submitMatch}>
             <div className='grid grid-cols-1 md:grid-cols-5 gap-4 text-black'>
-                <select
-                    name='player1Id'
-                    className='p-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    onChange={(e) => setPlayer1Id(Number(e.target.value))}
-                    required
-                >
-                    <option value=''>Player 1</option>
-                    {players.map((p) => (
-                        <option key={p.id} value={p.id}>
-                            {p.name}
-                        </option>
-                    ))}
-                </select>
-
-                <select
-                    name='player2Id'
-                    className='p-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    required
-                >
-                    <option value=''>Player 2</option>
-                    {players
-                        .filter((p) => p.id !== player1Id)
-                        .map((p) => (
+                <div className='flex gap-10 items-center'>
+                    <select
+                        name='player1Id'
+                        className='p-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 w-1/2'
+                        onChange={(e) => setPlayer1Id(Number(e.target.value))}
+                        required
+                    >
+                        <option value=''>Player 1</option>
+                        {players.map((p) => (
                             <option key={p.id} value={p.id}>
                                 {p.name}
                             </option>
                         ))}
-                </select>
+                    </select>
+                    <h1>{"VS"}</h1>
 
-                <input
-                    name='player1Score'
-                    type='number'
-                    placeholder='P1 Score'
-                    className='p-3 border rounded-lg w-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    min={0}
-                    max={7}
-                    required
-                />
-                <input
-                    name='player2Score'
-                    type='number'
-                    placeholder='P2 Score'
-                    className='p-3 border rounded-lg w-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                    min={0}
-                    max={7}
-                    required
-                />
+                    <select
+                        name='player2Id'
+                        className='p-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 w-1/2'
+                        required
+                    >
+                        <option value=''>Player 2</option>
+                        {players
+                            .filter((p) => p.id !== player1Id)
+                            .map((p) => (
+                                <option key={p.id} value={p.id}>
+                                    {p.name}
+                                </option>
+                            ))}
+                    </select>
+                </div>
+                <div className='flex gap-10 items-center'>
+                    <input
+                        name='player1Score'
+                        type='number'
+                        placeholder='P1 Score'
+                        className='p-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 w-1/2'
+                        min={0}
+                        max={7}
+                        required
+                    />
+                    <h1>{" : "}</h1>
+                    <input
+                        name='player2Score'
+                        type='number'
+                        placeholder='P2 Score'
+                        className='p-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 w-1/2'
+                        min={0}
+                        max={7}
+                        required
+                    />
+                </div>
 
                 <button
                     type='submit'
