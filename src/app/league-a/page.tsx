@@ -1,10 +1,11 @@
 import MatchForm from "@/components/match-form";
 import TableA from "@/components/table-a";
 import db from "@/lib/db";
-import { getAPlayers } from "@/lib/prismaFunctions";
+import { getAPlayers, getMatches } from "@/lib/prismaFunctions";
 
 export default async function LeagueA() {
     const players = await getAPlayers();
+    const matches = await getMatches();
     const config = await db.config.findUnique({
         where: { key: "CURRENT_SEASON" },
     });
@@ -17,7 +18,7 @@ export default async function LeagueA() {
             </h1>
             <TableA />
             <div className='bg-white p-6 rounded-xl shadow-md mt-8'>
-                <MatchForm players={players} />
+                <MatchForm players={players} matches={matches} />
             </div>
         </div>
     );

@@ -14,11 +14,29 @@ interface IPlayer {
     createdAt: Date;
 }
 
-interface MatchFormProps {
-    players: IPlayer[];
+interface IMatch {
+    player1: {
+        name: string;
+    };
+    player2: {
+        name: string;
+    };
+    player1Id: number;
+    player2Id: number;
+    player1Score: number;
+    player2Score: number;
+    id: number;
+    winnerId: number;
+    season: number;
+    matchDate: Date;
 }
 
-export default function MatchForm({ players }: MatchFormProps) {
+interface MatchFormProps {
+    players: IPlayer[];
+    matches: IMatch[];
+}
+
+export default function MatchForm({ players, matches }: MatchFormProps) {
     const [player1Id, setPlayer1Id] = useState<number | null>(null);
 
     return (
@@ -59,6 +77,15 @@ export default function MatchForm({ players }: MatchFormProps) {
                                     p.seasonWins + p.seasonLosses !==
                                     players.length - 1
                             )
+                            .filter((p) => {
+                                return !matches.some(
+                                    (m) =>
+                                        (m.player1Id === player1Id &&
+                                            m.player2Id === p.id) ||
+                                        (m.player1Id === p.id &&
+                                            m.player2Id === player1Id)
+                                );
+                            })
                             .map((p) => (
                                 <option key={p.id} value={p.id}>
                                     {p.name}
