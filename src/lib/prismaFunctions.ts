@@ -45,6 +45,31 @@ export async function getMatches() {
     return matches;
 }
 
+export async function shouldIncrementSeason(currentSeason: number) {
+    const aPlayers = await db.player.findMany({
+        where: {
+            league: "A",
+        },
+    });
+    const bPlayers = await db.player.findMany({
+        where: {
+            league: "B",
+        },
+    });
+    const expectedAMatches = (aPlayers.length * (aPlayers.length - 1)) / 2;
+    const expectedBMatches = (bPlayers.length * (bPlayers.length - 1)) / 2;
+    const playedMatches = await db.match.count({
+        where: {
+            season: currentSeason,
+        },
+    });
+    if (playedMatches < expectedAMatches + expectedBMatches) {
+        return false; // Not all matches are played in both leaguess
+    }
+
+    return true; // All leagues completed
+}
+
 export async function submitMatch(formData: FormData) {
     const player1Id = Number(formData.get("player1Id"));
     const player2Id = Number(formData.get("player2Id"));
@@ -68,6 +93,18 @@ export async function submitMatch(formData: FormData) {
             season: currentSeason, // use context or constant
         },
     });
+
+    // Check if we should increment
+    const readyToAdvance = await shouldIncrementSeason(currentSeason);
+
+    if (readyToAdvance) {
+        await db.config.update({
+            where: { key: "CURRENT_SEASON" },
+            data: { value: String(currentSeason + 1) },
+        });
+
+        console.log("Season incremented to", currentSeason + 1);
+    }
 
     // Optional: Update player stats (wins/losses)
     if (player1Score > player2Score) {

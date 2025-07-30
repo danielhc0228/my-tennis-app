@@ -22,7 +22,7 @@ export default async function TableA() {
 
                 <tbody>
                     {aPlayers.map((player, index: number) => {
-                        const totalMatches = 4;
+                        const totalMatches = aPlayers.length - 1;
                         const wins = player.seasonWins;
                         const losses = player.seasonLosses;
                         const unplayed = totalMatches - (wins + losses);
