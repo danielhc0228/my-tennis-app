@@ -32,11 +32,17 @@ export default function MatchForm({ players }: MatchFormProps) {
                         required
                     >
                         <option value=''>Player 1</option>
-                        {players.map((p) => (
-                            <option key={p.id} value={p.id}>
-                                {p.name}
-                            </option>
-                        ))}
+                        {players
+                            .filter(
+                                (p) =>
+                                    p.seasonWins + p.seasonLosses !==
+                                    players.length - 1
+                            )
+                            .map((p) => (
+                                <option key={p.id} value={p.id}>
+                                    {p.name}
+                                </option>
+                            ))}
                     </select>
                     <h1>{"VS"}</h1>
 
@@ -48,6 +54,11 @@ export default function MatchForm({ players }: MatchFormProps) {
                         <option value=''>Player 2</option>
                         {players
                             .filter((p) => p.id !== player1Id)
+                            .filter(
+                                (p) =>
+                                    p.seasonWins + p.seasonLosses !==
+                                    players.length - 1
+                            )
                             .map((p) => (
                                 <option key={p.id} value={p.id}>
                                     {p.name}
