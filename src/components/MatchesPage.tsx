@@ -32,7 +32,7 @@ export default function MatchesPage({ allMatches }: { allMatches: IMatch[] }) {
     ).sort((a, b) => b - a); // descending
 
     return (
-        <div className='flex flex-col bg-slate-100 min-h-screen text-gray-900'>
+        <div className='flex flex-col bg-slate-100 min-h-screen text-gray-900 pb-30'>
             <div className='m-6 bg-white shadow-md rounded-xl px-5 py-3 flex items-center gap-4'>
                 <label
                     htmlFor='season-select'

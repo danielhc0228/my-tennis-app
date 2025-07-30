@@ -1,4 +1,5 @@
-import TableWrapper from "@/components/table-wrapper";
+import TableA from "@/components/table-a";
+import TableB from "@/components/table-b";
 
 export default function HomePage() {
     return (
@@ -7,7 +8,10 @@ export default function HomePage() {
             <div className='flex justify-between items-center mb-4'>
                 <div className='text-xl font-bold text-black'>HTP League</div>
             </div>
-            <TableWrapper />
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mb-30'>
+                <TableA />
+                <TableB />
+            </div>
         </div>
     );
 }

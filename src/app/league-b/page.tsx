@@ -12,7 +12,7 @@ export default async function LeagueB() {
     const currentSeason = parseInt(config?.value ?? "1", 10);
 
     return (
-        <div className=' mx-auto px-4 py-8 bg-slate-100 min-h-screen'>
+        <div className=' mx-auto px-4 py-8 bg-slate-100 min-h-screen pb-30'>
             <h1 className='text-3xl font-bold mb-6 text-center text-blue-900'>
                 {`Season ${currentSeason}`}
             </h1>
