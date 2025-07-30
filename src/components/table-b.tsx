@@ -4,7 +4,7 @@ import { getBPlayers } from "../lib/prismaFunctions";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
 export default async function TableB() {
-    const aPlayers: Player[] = await getBPlayers();
+    const bPlayers: Player[] = await getBPlayers();
 
     return (
         <div className='bg-white p-6 rounded-xl shadow-md text-black'>
@@ -22,8 +22,8 @@ export default async function TableB() {
                 </thead>
 
                 <tbody>
-                    {aPlayers.map((player, index: number) => {
-                        const totalMatches = 4;
+                    {bPlayers.map((player, index: number) => {
+                        const totalMatches = bPlayers.length - 1;
                         const wins = player.seasonWins;
                         const losses = player.seasonLosses;
                         const unplayed = totalMatches - (wins + losses);
