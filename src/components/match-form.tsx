@@ -1,7 +1,7 @@
 "use client";
 
 import { submitMatch } from "@/lib/prismaFunctions";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 
 interface IPlayer {
     id: number;
@@ -38,9 +38,23 @@ interface MatchFormProps {
 
 export default function MatchForm({ players, matches }: MatchFormProps) {
     const [player1Id, setPlayer1Id] = useState<number | null>(null);
+    const [isPending, setIsPending] = useTransition();
+    const [showModal, setShowModal] = useState(false);
+    const [newSeason, setNewSeason] = useState<number | null>(null);
+
+    const handleSubmit = (formData: FormData) => {
+        setIsPending(async () => {
+            const result = await submitMatch(formData);
+
+            if (result?.seasonAdvanced) {
+                setNewSeason(result.newSeason);
+                setShowModal(true);
+            }
+        });
+    };
 
     return (
-        <form action={submitMatch}>
+        <form action={handleSubmit}>
             <div className='grid grid-cols-1 gap-4 text-black justify-center'>
                 <div className='flex gap-5 items-center'>
                     <select
@@ -115,12 +129,31 @@ export default function MatchForm({ players, matches }: MatchFormProps) {
                     />
                 </div>
 
-                <button
+                {/* <button
                     type='submit'
                     className='bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition px-4 py-3'
                 >
                     Submit
+                </button> */}
+                <button
+                    type='submit'
+                    className='bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition px-4 py-3'
+                    disabled={isPending}
+                >
+                    {isPending ? "Submitting..." : "Submit Match"}
                 </button>
+
+                {showModal && (
+                    <div
+                        onClick={() => setShowModal(false)}
+                        className='fixed inset-0 z-40 bg-black/30 backdrop-blur-sm flex items-center justify-center'
+                    >
+                        <div className='w-3/4 h-1/5 bg-green-400 text-white px-6 py-4 rounded-lg shadow-lg cursor-pointer text-center text-2xl flex items-center justify-center z-50'>
+                            🎉 Season {newSeason! - 1} is finished! Season{" "}
+                            {newSeason} commence!
+                        </div>
+                    </div>
+                )}
             </div>
         </form>
     );

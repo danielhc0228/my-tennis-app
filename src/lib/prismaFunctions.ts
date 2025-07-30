@@ -94,7 +94,39 @@ export async function submitMatch(formData: FormData) {
         },
     });
 
-    // Check if we should increment
+    // Update player stats (wins/losses)
+    if (player1Score > player2Score) {
+        await db.player.update({
+            where: { id: player1Id },
+            data: { seasonWins: { increment: 1 }, totalWins: { increment: 1 } },
+        });
+        await db.player.update({
+            where: { id: player2Id },
+            data: {
+                seasonLosses: { increment: 1 },
+                totalLosses: { increment: 1 },
+            },
+        });
+    } else {
+        await db.player.update({
+            where: { id: player2Id },
+            data: { seasonWins: { increment: 1 }, totalWins: { increment: 1 } },
+        });
+        await db.player.update({
+            where: { id: player1Id },
+            data: {
+                seasonLosses: { increment: 1 },
+                totalLosses: { increment: 1 },
+            },
+        });
+    }
+
+    revalidatePath("/league-a");
+    revalidatePath("/league-b");
+    revalidatePath("/");
+
+    let seasonAdvanced = false;
+    let newSeason = null;
     const readyToAdvance = await shouldIncrementSeason(currentSeason);
 
     if (readyToAdvance) {
@@ -104,30 +136,21 @@ export async function submitMatch(formData: FormData) {
         });
 
         console.log("Season incremented to", currentSeason + 1);
+
+        await db.player.updateMany({
+            data: {
+                seasonWins: 0,
+                seasonLosses: 0,
+            },
+        });
+
+        revalidatePath("/league-a");
+        revalidatePath("/league-b");
+        revalidatePath("/");
+
+        seasonAdvanced = true;
+        newSeason = currentSeason + 1;
     }
 
-    // Optional: Update player stats (wins/losses)
-    if (player1Score > player2Score) {
-        await db.player.update({
-            where: { id: player1Id },
-            data: { seasonWins: { increment: 1 } },
-        });
-        await db.player.update({
-            where: { id: player2Id },
-            data: { seasonLosses: { increment: 1 } },
-        });
-    } else {
-        await db.player.update({
-            where: { id: player2Id },
-            data: { seasonWins: { increment: 1 } },
-        });
-        await db.player.update({
-            where: { id: player1Id },
-            data: { seasonLosses: { increment: 1 } },
-        });
-    }
-
-    revalidatePath("/league-a");
-    revalidatePath("/league-b");
-    revalidatePath("/");
+    return { success: true, seasonAdvanced, newSeason };
 }
