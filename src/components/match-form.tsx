@@ -34,9 +34,14 @@ interface IMatch {
 interface MatchFormProps {
     players: IPlayer[];
     matches: IMatch[];
+    season: number;
 }
 
-export default function MatchForm({ players, matches }: MatchFormProps) {
+export default function MatchForm({
+    players,
+    matches,
+    season,
+}: MatchFormProps) {
     const [player1Id, setPlayer1Id] = useState<number | null>(null);
     const [isPending, setIsPending] = useTransition();
     const [showModal, setShowModal] = useState(false);
@@ -94,7 +99,8 @@ export default function MatchForm({ players, matches }: MatchFormProps) {
                             .filter((p) => {
                                 return !matches.some(
                                     (m) =>
-                                        (m.player1Id === player1Id &&
+                                        (m.season === season &&
+                                            m.player1Id === player1Id &&
                                             m.player2Id === p.id) ||
                                         (m.player1Id === p.id &&
                                             m.player2Id === player1Id)
@@ -128,13 +134,6 @@ export default function MatchForm({ players, matches }: MatchFormProps) {
                         required
                     />
                 </div>
-
-                {/* <button
-                    type='submit'
-                    className='bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition px-4 py-3'
-                >
-                    Submit
-                </button> */}
                 <button
                     type='submit'
                     className='bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition px-4 py-3'

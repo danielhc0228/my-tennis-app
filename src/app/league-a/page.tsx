@@ -18,7 +18,11 @@ export default async function LeagueA() {
             </h1>
             <TableA />
             <div className='bg-white p-6 rounded-xl shadow-md mt-8'>
-                <MatchForm players={players} matches={matches} />
+                <MatchForm
+                    players={players}
+                    matches={matches}
+                    season={currentSeason}
+                />
             </div>
         </div>
     );
