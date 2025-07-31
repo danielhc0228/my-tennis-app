@@ -1,0 +1,17 @@
+-- CreateTable
+CREATE TABLE "Season" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "number" INTEGER NOT NULL,
+    "winnerAId" INTEGER NOT NULL,
+    "loserAId" INTEGER NOT NULL,
+    "winnerBId" INTEGER NOT NULL,
+    "loserBId" INTEGER NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "Season_winnerAId_fkey" FOREIGN KEY ("winnerAId") REFERENCES "Player" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Season_loserAId_fkey" FOREIGN KEY ("loserAId") REFERENCES "Player" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Season_winnerBId_fkey" FOREIGN KEY ("winnerBId") REFERENCES "Player" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Season_loserBId_fkey" FOREIGN KEY ("loserBId") REFERENCES "Player" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Season_number_key" ON "Season"("number");

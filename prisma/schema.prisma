@@ -28,6 +28,11 @@ model Player {
   matchesAsPlayer1 Match[]  @relation("Player1Matches")
   matchesAsPlayer2 Match[]  @relation("Player2Matches")
   createdAt        DateTime @default(now())
+
+  seasonsWonA  Season[] @relation("WinnerA")
+  seasonsLostA Season[] @relation("LoserA")
+  seasonsWonB  Season[] @relation("WinnerB")
+  seasonsLostB Season[] @relation("LoserB")
 }
 
 model Match {
@@ -54,6 +59,21 @@ model Config {
   id    Int    @id @default(autoincrement())
   key   String @unique
   value String
+}
+
+model Season {
+  id        Int      @id @default(autoincrement())
+  number    Int      @unique
+  winnerAId Int
+  loserAId  Int
+  winnerBId Int
+  loserBId  Int
+  createdAt DateTime @default(now())
+
+  winnerA Player @relation("WinnerA", fields: [winnerAId], references: [id])
+  loserA  Player @relation("LoserA", fields: [loserAId], references: [id])
+  winnerB Player @relation("WinnerB", fields: [winnerBId], references: [id])
+  loserB  Player @relation("LoserB", fields: [loserBId], references: [id])
 }
 
 enum League {

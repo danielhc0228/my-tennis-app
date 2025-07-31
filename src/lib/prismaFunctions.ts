@@ -138,6 +138,7 @@ export async function submitMatch(formData: FormData) {
     let seasonAdvanced = false;
     let newSeason = null;
     const readyToAdvance = await shouldIncrementSeason(currentSeason);
+    const summary = await getSeasonSummary();
 
     if (readyToAdvance) {
         await db.config.update({
@@ -160,9 +161,17 @@ export async function submitMatch(formData: FormData) {
 
         seasonAdvanced = true;
         newSeason = currentSeason + 1;
-    }
 
-    const summary = await getSeasonSummary();
+        await db.season.create({
+            data: {
+                number: currentSeason,
+                winnerAId: summary.leagueA.first.id,
+                loserAId: summary.leagueA.last.id,
+                winnerBId: summary.leagueB.first.id,
+                loserBId: summary.leagueB.last.id,
+            },
+        });
+    }
 
     return { success: true, seasonAdvanced, newSeason, seasonSummary: summary };
 }
