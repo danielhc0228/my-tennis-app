@@ -9,7 +9,7 @@ export async function getAPlayers() {
         where: {
             league: League.A,
         },
-        orderBy: { seasonWins: "desc" },
+        orderBy: [{ seasonWins: "desc" }, { seasonPoints: "desc" }],
     });
 
     return players;
@@ -20,7 +20,7 @@ export async function getBPlayers() {
         where: {
             league: League.B,
         },
-        orderBy: { seasonWins: "desc" },
+        orderBy: [{ seasonWins: "desc" }, { seasonPoints: "desc" }],
     });
 
     return players;
@@ -98,25 +98,35 @@ export async function submitMatch(formData: FormData) {
     if (player1Score > player2Score) {
         await db.player.update({
             where: { id: player1Id },
-            data: { seasonWins: { increment: 1 }, totalWins: { increment: 1 } },
+            data: {
+                seasonWins: { increment: 1 },
+                totalWins: { increment: 1 },
+                seasonPoints: { increment: player1Score },
+            },
         });
         await db.player.update({
             where: { id: player2Id },
             data: {
                 seasonLosses: { increment: 1 },
                 totalLosses: { increment: 1 },
+                seasonPoints: { increment: player2Score },
             },
         });
     } else {
         await db.player.update({
             where: { id: player2Id },
-            data: { seasonWins: { increment: 1 }, totalWins: { increment: 1 } },
+            data: {
+                seasonWins: { increment: 1 },
+                totalWins: { increment: 1 },
+                seasonPoints: { increment: player2Score },
+            },
         });
         await db.player.update({
             where: { id: player1Id },
             data: {
                 seasonLosses: { increment: 1 },
                 totalLosses: { increment: 1 },
+                seasonPoints: { increment: player1Score },
             },
         });
     }
