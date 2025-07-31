@@ -24,6 +24,7 @@ model Player {
   seasonLosses     Int      @default(0) // Losses in current season
   totalWins        Int      @default(0) // Cumulative wins across all seasons
   totalLosses      Int      @default(0) // Cumulative losses across all seasons
+  seasonPoints     Int      @default(0)
   matchesAsPlayer1 Match[]  @relation("Player1Matches")
   matchesAsPlayer2 Match[]  @relation("Player2Matches")
   createdAt        DateTime @default(now())
