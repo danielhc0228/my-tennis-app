@@ -1,5 +1,6 @@
 "use client";
 
+import { Player } from "@prisma/client";
 import { useState, useEffect } from "react";
 
 interface IMatch {
@@ -19,7 +20,26 @@ interface IMatch {
     matchDate: Date;
 }
 
-export default function MatchesPage({ allMatches }: { allMatches: IMatch[] }) {
+interface IData {
+    number: number;
+    id: number;
+    createdAt: Date;
+    winnerAId: number;
+    loserAId: number;
+    winnerBId: number;
+    loserBId: number;
+    winnerA: Player;
+    loserA: Player;
+    winnerB: Player;
+    loserB: Player;
+}
+
+interface IMatchPage {
+    allMatches: IMatch[];
+    seasonData: IData[];
+}
+
+export default function MatchesPage({ allMatches, seasonData }: IMatchPage) {
     const [season, setSeason] = useState<number>(1); // default season
     const [filtered, setFiltered] = useState<IMatch[]>([]);
 
@@ -52,6 +72,39 @@ export default function MatchesPage({ allMatches }: { allMatches: IMatch[] }) {
                         </option>
                     ))}
                 </select>
+            </div>
+
+            <div className='mx-5'>
+                {seasonData.map((s) => (
+                    <div
+                        key={s.id}
+                        className='bg-white rounded-lg shadow-md p-4 border border-gray-200'
+                    >
+                        <h2 className='text-xl font-semibold mb-2'>
+                            Season {s.number}
+                        </h2>
+                        <div className='grid grid-cols-2 gap-4 text-gray-800'>
+                            <div>
+                                <p className='font-medium text-green-600'>
+                                    League A
+                                </p>
+                                <p>🏆 1st: {s.winnerA.name}</p>
+                                <p>🥀 Last: {s.loserA.name}</p>
+                            </div>
+                            <div>
+                                <p className='font-medium text-blue-600'>
+                                    League B
+                                </p>
+                                <p>🏆 1st: {s.winnerB.name}</p>
+                                <p>🥀 Last: {s.loserB.name}</p>
+                            </div>
+                        </div>
+                        <p className='text-sm text-gray-500 mt-2'>
+                            Created at:{" "}
+                            {new Date(s.createdAt).toLocaleDateString()}
+                        </p>
+                    </div>
+                ))}
             </div>
 
             {/* Render filtered matches */}

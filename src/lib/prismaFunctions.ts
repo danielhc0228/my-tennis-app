@@ -193,3 +193,16 @@ export async function getSeasonSummary() {
         },
     };
 }
+
+export async function getSeasonWinnerLoser() {
+    const result = await db.season.findMany({
+        include: {
+            winnerA: true,
+            loserA: true,
+            winnerB: true,
+            loserB: true,
+        },
+    });
+
+    return result;
+}
