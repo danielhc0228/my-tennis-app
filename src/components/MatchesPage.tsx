@@ -41,11 +41,13 @@ interface IMatchPage {
 
 export default function MatchesPage({ allMatches, seasonData }: IMatchPage) {
     const [season, setSeason] = useState<number>(1); // default season
+    const [filteredSeason, setfilteredSeason] = useState<IData[]>([]); // default season
     const [filtered, setFiltered] = useState<IMatch[]>([]);
 
     useEffect(() => {
         setFiltered(allMatches.filter((match) => match.season === season));
-    }, [season, allMatches]);
+        setfilteredSeason(seasonData.filter((s) => s.number === season));
+    }, [season, allMatches, seasonData]);
 
     const seasons = Array.from(
         new Set(allMatches.map((match) => match.season))
@@ -75,7 +77,7 @@ export default function MatchesPage({ allMatches, seasonData }: IMatchPage) {
             </div>
 
             <div className='mx-5'>
-                {seasonData.map((s) => (
+                {filteredSeason!.map((s) => (
                     <div
                         key={s.id}
                         className='bg-white rounded-lg shadow-md p-4 border border-gray-200'
