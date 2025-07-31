@@ -14,6 +14,16 @@ interface IPlayer {
     createdAt: Date;
 }
 
+interface LeagueSummary {
+    first: IPlayer | null;
+    last: IPlayer | null;
+}
+
+interface SeasonSummary {
+    leagueA: LeagueSummary;
+    leagueB: LeagueSummary;
+}
+
 interface IMatch {
     player1: {
         name: string;
@@ -46,10 +56,14 @@ export default function MatchForm({
     const [isPending, setIsPending] = useTransition();
     const [showModal, setShowModal] = useState(false);
     const [newSeason, setNewSeason] = useState<number | null>(null);
+    const [seasonSummary, setSeasonSummary] = useState<SeasonSummary | null>(
+        null
+    );
 
     const handleSubmit = (formData: FormData) => {
         setIsPending(async () => {
             const result = await submitMatch(formData);
+            setSeasonSummary(result.seasonSummary);
 
             if (result?.seasonAdvanced) {
                 setNewSeason(result.newSeason);
@@ -102,7 +116,8 @@ export default function MatchForm({
                                         (m.season === season &&
                                             m.player1Id === player1Id &&
                                             m.player2Id === p.id) ||
-                                        (m.player1Id === p.id &&
+                                        (m.season === season &&
+                                            m.player1Id === p.id &&
                                             m.player2Id === player1Id)
                                 );
                             })
@@ -145,11 +160,27 @@ export default function MatchForm({
                 {showModal && (
                     <div
                         onClick={() => setShowModal(false)}
-                        className='fixed inset-0 z-40 bg-black/30 backdrop-blur-sm flex items-center justify-center'
+                        className='fixed inset-0 bg-black/80 flex items-center justify-center z-50'
                     >
-                        <div className='w-3/4 h-1/5 bg-green-400 text-white px-6 py-4 rounded-lg shadow-lg cursor-pointer text-center text-2xl flex items-center justify-center z-50'>
-                            🎉 Season {newSeason! - 1} is finished! Season{" "}
-                            {newSeason} commence!
+                        <div className='w-3/4 bg-green-400 text-white px-6 py-4 rounded-lg shadow-lg cursor-pointer text-center text-2xl flex flex-col gap-4 items-center justify-center'>
+                            🎉 Season {newSeason! - 1} is finished!
+                            <br />
+                            Season {newSeason} commences!
+                            <div className='text-lg mt-4'>
+                                <p>
+                                    <strong>🏆 League A:</strong> 1st -{" "}
+                                    {seasonSummary!.leagueA.first?.name}, Last -{" "}
+                                    {seasonSummary!.leagueA.last?.name}
+                                </p>
+                                <p>
+                                    <strong>🏆 League B:</strong> 1st -{" "}
+                                    {seasonSummary!.leagueB.first?.name}, Last -{" "}
+                                    {seasonSummary!.leagueB.last?.name}
+                                </p>
+                            </div>
+                            <p className='text-sm mt-2'>
+                                (Click anywhere to close)
+                            </p>
                         </div>
                     </div>
                 )}

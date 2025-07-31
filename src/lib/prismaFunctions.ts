@@ -162,5 +162,25 @@ export async function submitMatch(formData: FormData) {
         newSeason = currentSeason + 1;
     }
 
-    return { success: true, seasonAdvanced, newSeason };
+    const summary = await getSeasonSummary();
+
+    return { success: true, seasonAdvanced, newSeason, seasonSummary: summary };
+}
+
+export async function getSeasonSummary() {
+    const [aPlayers, bPlayers] = await Promise.all([
+        getAPlayers(),
+        getBPlayers(),
+    ]);
+
+    return {
+        leagueA: {
+            first: aPlayers[0] ?? null,
+            last: aPlayers[aPlayers.length - 1] ?? null,
+        },
+        leagueB: {
+            first: bPlayers[0] ?? null,
+            last: bPlayers[bPlayers.length - 1] ?? null,
+        },
+    };
 }
