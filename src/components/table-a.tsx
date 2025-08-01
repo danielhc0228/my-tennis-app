@@ -36,16 +36,16 @@ export default async function TableA() {
                         return (
                             <tr
                                 key={player.id}
-                                className={`hover:bg-gray-100 transition ${
-                                    index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                                className={`transition-colors duration-200 ${
+                                    index === 0
+                                        ? "border-l-4 border-green-400"
+                                        : index === aPlayers.length - 1
+                                        ? "border-l-4 border-red-400"
+                                        : "bg-white hover:bg-gray-100"
                                 }`}
                             >
-                                <td className='p-3 font-medium text-center'>
-                                    {index + 1}
-                                </td>
-                                <td className='p-3 font-semibold'>
-                                    {player.name}
-                                </td>
+                                <td className='p-3 text-center'>{index + 1}</td>
+                                <td className='p-3'>{player.name}</td>
                                 <td className='p-3'>
                                     <div className='flex gap-2'>
                                         {resultIcons.map((result, i) => (
