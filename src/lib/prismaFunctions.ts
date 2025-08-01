@@ -155,10 +155,6 @@ export async function submitMatch(formData: FormData) {
             },
         });
 
-        revalidatePath("/league-a");
-        revalidatePath("/league-b");
-        revalidatePath("/");
-
         seasonAdvanced = true;
         newSeason = currentSeason + 1;
 
@@ -171,6 +167,27 @@ export async function submitMatch(formData: FormData) {
                 loserBId: summary.leagueB.last.id,
             },
         });
+
+        await db.player.update({
+            where: {
+                id: summary.leagueA.last.id,
+            },
+            data: {
+                league: "B",
+            },
+        });
+        await db.player.update({
+            where: {
+                id: summary.leagueB.first.id,
+            },
+            data: {
+                league: "A",
+            },
+        });
+
+        revalidatePath("/league-a");
+        revalidatePath("/league-b");
+        revalidatePath("/");
     }
 
     return { success: true, seasonAdvanced, newSeason, seasonSummary: summary };
