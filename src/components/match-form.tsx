@@ -1,7 +1,7 @@
 "use client";
 
 import { submitMatch } from "@/lib/prismaFunctions";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 interface IPlayer {
     id: number;
@@ -54,6 +54,7 @@ export default function MatchForm({
 }: MatchFormProps) {
     const [player1Id, setPlayer1Id] = useState<number | null>(null);
     const [isPending, setIsPending] = useTransition();
+    const [isPasswordPending, setIsPasswordPending] = useTransition();
     const [showModal, setShowModal] = useState(false);
     const [newSeason, setNewSeason] = useState<number | null>(null);
     const [seasonSummary, setSeasonSummary] = useState<SeasonSummary | null>(
@@ -62,20 +63,30 @@ export default function MatchForm({
     const [unlocked, setUnlocked] = useState(false);
     const [password, setPassword] = useState("");
 
-    const handlePasswordSubmit = async () => {
-        const res = await fetch("/api/verify-password", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ password }),
-        });
-
-        if (res.ok) {
+    useEffect(() => {
+        const stored = localStorage.getItem("formUnlocked");
+        if (stored === "true") {
             setUnlocked(true);
-        } else {
-            alert("Incorrect password");
         }
+    }, []);
+
+    const handlePasswordSubmit = async () => {
+        setIsPasswordPending(async () => {
+            const res = await fetch("/api/verify-password", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ password }),
+            });
+
+            if (res.ok) {
+                localStorage.setItem("formUnlocked", "true");
+                setUnlocked(true);
+            } else {
+                alert("Incorrect password");
+            }
+        });
     };
 
     if (!unlocked) {
@@ -91,8 +102,9 @@ export default function MatchForm({
                 <button
                     onClick={handlePasswordSubmit}
                     className='px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition'
+                    disabled={isPasswordPending}
                 >
-                    Unlock Form
+                    {isPasswordPending ? "Submitting..." : "Unlock"}
                 </button>
             </div>
         );
