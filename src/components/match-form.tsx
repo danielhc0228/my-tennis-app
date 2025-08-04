@@ -59,6 +59,44 @@ export default function MatchForm({
     const [seasonSummary, setSeasonSummary] = useState<SeasonSummary | null>(
         null
     );
+    const [unlocked, setUnlocked] = useState(false);
+    const [password, setPassword] = useState("");
+
+    const handlePasswordSubmit = async () => {
+        const res = await fetch("/api/verify-password", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ password }),
+        });
+
+        if (res.ok) {
+            setUnlocked(true);
+        } else {
+            alert("Incorrect password");
+        }
+    };
+
+    if (!unlocked) {
+        return (
+            <div className='space-y-4'>
+                <input
+                    type='password'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder='Enter admin password'
+                    className='p-2 border rounded w-full text-black border-gray-200'
+                />
+                <button
+                    onClick={handlePasswordSubmit}
+                    className='px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition'
+                >
+                    Unlock Form
+                </button>
+            </div>
+        );
+    }
 
     const handleSubmit = (formData: FormData) => {
         setIsPending(async () => {
