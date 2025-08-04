@@ -101,8 +101,14 @@ export default function MatchForm({
                 />
                 <button
                     onClick={handlePasswordSubmit}
-                    className='px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition'
                     disabled={isPasswordPending}
+                    className={` text-white font-semibold rounded-lg transition px-4 py-3 w-full
+        ${
+            isPasswordPending
+                ? "bg-gray-400  cursor-not-allowed pointer-events-none"
+                : "bg-blue-600 hover:bg-blue-700"
+        }
+    `}
                 >
                     {isPasswordPending ? "Submitting..." : "Unlock"}
                 </button>
@@ -201,7 +207,13 @@ export default function MatchForm({
                 </div>
                 <button
                     type='submit'
-                    className='bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition px-4 py-3'
+                    className={` text-white font-semibold rounded-lg transition px-4 py-3
+        ${
+            isPending
+                ? "bg-gray-400  cursor-not-allowed pointer-events-none"
+                : "bg-blue-600 hover:bg-blue-700"
+        }
+    `}
                     disabled={isPending}
                 >
                     {isPending ? "Submitting..." : "Submit Match"}
