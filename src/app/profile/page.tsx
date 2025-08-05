@@ -12,32 +12,34 @@ export default async function PlayerProfiles() {
                 Player Profiles
             </h1>
 
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mb-16'>
                 {players.map((player) => (
                     <div
                         key={player.id}
-                        className='bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 flex flex-col items-center text-center'
+                        className='bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 flex items-center text-center gap-8'
                     >
                         <Image
                             // src={`https://api.dicebear.com/8.x/thumbs/svg?seed=${player.name}`}
                             src={"/avatar.png"}
                             alt={`${player.name}'s avatar`}
                             className='w-24 h-24 rounded-full mb-4'
-                            width={50}
-                            height={50}
+                            width={25}
+                            height={25}
                         />
-                        <h2 className='text-xl font-semibold text-gray-800'>
-                            {player.name}
-                        </h2>
-                        <p
-                            className={`mt-1 text-sm font-medium ${
-                                player.league === "A"
-                                    ? "text-green-600"
-                                    : "text-blue-600"
-                            }`}
-                        >
-                            League {player.league}
-                        </p>
+                        <div>
+                            <h2 className='text-xl font-semibold text-gray-800'>
+                                {player.name}
+                            </h2>
+                            <p
+                                className={`mt-1 text-sm font-medium ${
+                                    player.league === "A"
+                                        ? "text-green-600"
+                                        : "text-blue-600"
+                                }`}
+                            >
+                                League {player.league}
+                            </p>
+                        </div>
                     </div>
                 ))}
             </div>
