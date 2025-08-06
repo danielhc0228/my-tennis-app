@@ -31,6 +31,7 @@ export default async function ProfileDetail({
             <div className='max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8'>
                 <div className='flex flex-col md:flex-row items-center md:items-start gap-8 text-center md:text-start'>
                     <Image
+                        priority={true}
                         src={`/${player.name}.svg`}
                         alt={player.name}
                         className='w-36 h-36 rounded-full shadow-md'
