@@ -1,3 +1,4 @@
+import PlayerRadarChart from "@/components/radar-chart";
 import db from "@/lib/db";
 import Image from "next/image";
 
@@ -26,7 +27,7 @@ export default async function ProfileDetail({
             : "N/A";
 
     return (
-        <div className='min-h-screen bg-gradient-to-br from-purple-100 to-indigo-100 p-8'>
+        <div className='min-h-[150vh] bg-gradient-to-br from-purple-100 to-indigo-100 p-8'>
             <div className='max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8'>
                 <div className='flex flex-col md:flex-row items-center md:items-start gap-8 text-center md:text-start'>
                     <Image
@@ -37,24 +38,26 @@ export default async function ProfileDetail({
                         height={25}
                     />
                     <div className='flex-1'>
-                        <h1 className='text-3xl font-bold text-indigo-800 mb-2'>
-                            {player.name}
-                        </h1>
+                        <div>
+                            <h1 className='text-3xl font-bold text-indigo-800 mb-2'>
+                                {player.name}
+                            </h1>
 
-                        <span
-                            className={`inline-block px-3 py-1 text-sm rounded-full font-medium ${
-                                player.league === "A"
-                                    ? "bg-green-100 text-green-800"
-                                    : "bg-blue-100 text-blue-800"
-                            }`}
-                        >
-                            League {player.league}
-                        </span>
+                            <span
+                                className={`inline-block px-3 py-1 text-sm rounded-full font-medium ${
+                                    player.league === "A"
+                                        ? "bg-green-100 text-green-800"
+                                        : "bg-blue-100 text-blue-800"
+                                }`}
+                            >
+                                League {player.league}
+                            </span>
 
-                        <p className='mt-4 text-gray-600'>
-                            {/* {player.description ||  */}
-                            {"No description provided."}
-                        </p>
+                            <p className='mt-4 text-gray-600'>
+                                {/* {player.description ||  */}
+                                {"No description provided."}
+                            </p>
+                        </div>
 
                         <div className='mt-6 grid grid-cols-2 gap-6 text-center'>
                             <div>
@@ -84,6 +87,7 @@ export default async function ProfileDetail({
                         </div>
                     </div>
                 </div>
+                <PlayerRadarChart />
             </div>
         </div>
     );
