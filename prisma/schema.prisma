@@ -33,6 +33,12 @@ model Player {
   seasonsLostA Season[] @relation("LoserA")
   seasonsWonB  Season[] @relation("WinnerB")
   seasonsLostB Season[] @relation("LoserB")
+
+  power    Int @default(0)
+  serve    Int @default(0)
+  accuracy Int @default(0)
+  agility  Int @default(0)
+  volley   Int @default(0)
 }
 
 model Match {
