@@ -2,11 +2,9 @@ import PlayerRadarChart from "@/components/radar-chart";
 import db from "@/lib/db";
 import Image from "next/image";
 
-export default async function ProfileDetail(
-    props: {
-        params: Promise<{ id: string }>;
-    }
-) {
+export default async function ProfileDetail(props: {
+    params: Promise<{ id: string }>;
+}) {
     const params = await props.params;
     const id = Number(params.id);
     const player = await db.player.findUnique({
@@ -89,7 +87,13 @@ export default async function ProfileDetail(
                         </div>
                     </div>
                 </div>
-                <PlayerRadarChart />
+                <PlayerRadarChart
+                    power={player.power}
+                    serve={player.serve}
+                    accuracy={player.accuracy}
+                    volley={player.volley}
+                    agility={player.agility}
+                />
             </div>
         </div>
     );

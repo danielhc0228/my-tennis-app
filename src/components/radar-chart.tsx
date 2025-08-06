@@ -8,15 +8,28 @@ import {
     ResponsiveContainer,
 } from "recharts";
 
-const data = [
-    { subject: "Power", value: 85 },
-    { subject: "Accuracy", value: 72 },
-    { subject: "Speed", value: 66 },
-    { subject: "Strategy", value: 90 },
-    { subject: "Stamina", value: 78 },
-];
+interface IStat {
+    power: number;
+    serve: number;
+    accuracy: number;
+    volley: number;
+    agility: number;
+}
 
-export default function PlayerRadarChart() {
+export default function PlayerRadarChart({
+    power,
+    serve,
+    agility,
+    accuracy,
+    volley,
+}: IStat) {
+    const data = [
+        { subject: "Power", value: power },
+        { subject: "Serve", value: serve },
+        { subject: "Accuracy", value: accuracy },
+        { subject: "Agility", value: agility },
+        { subject: "Volley", value: volley },
+    ];
     return (
         <div className='w-full max-w-md mx-auto mt-8'>
             <h2 className='text-xl font-semibold text-center mb-4 text-slate-700'>
@@ -26,7 +39,7 @@ export default function PlayerRadarChart() {
                 <RadarChart cx='50%' cy='50%' outerRadius='80%' data={data}>
                     <PolarGrid />
                     <PolarAngleAxis dataKey='subject' />
-                    <PolarRadiusAxis angle={30} domain={[0, 100]} />
+                    <PolarRadiusAxis angle={30} domain={[0, 10]} />
                     <Radar
                         name='Stats'
                         dataKey='value'
