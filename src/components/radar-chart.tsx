@@ -24,11 +24,11 @@ export default function PlayerRadarChart({
     volley,
 }: IStat) {
     const data = [
-        { subject: "Power", value: power },
-        { subject: "Serve", value: serve },
-        { subject: "Accuracy", value: accuracy },
-        { subject: "Agility", value: agility },
-        { subject: "Volley", value: volley },
+        { subject: "PWR", value: power },
+        { subject: "SRV", value: serve },
+        { subject: "ACC", value: accuracy },
+        { subject: "AGL", value: agility },
+        { subject: "VLY", value: volley },
     ];
     return (
         <div className='w-full max-w-md mx-auto mt-8'>
