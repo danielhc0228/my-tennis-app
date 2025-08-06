@@ -1,5 +1,6 @@
 import db from "@/lib/db";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function PlayerProfiles() {
     const players = await db.player.findMany({
@@ -14,7 +15,8 @@ export default async function PlayerProfiles() {
 
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mb-16'>
                 {players.map((player) => (
-                    <div
+                    <Link
+                        href={`/profile/${player.id}`}
                         key={player.id}
                         className='bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 flex items-center text-center gap-8'
                     >
@@ -40,7 +42,7 @@ export default async function PlayerProfiles() {
                                 League {player.league}
                             </p>
                         </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>
