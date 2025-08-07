@@ -88,8 +88,60 @@ async function main() {
         where: { id: 6 },
         update: {},
     });
+    const p7 = await prisma.player.upsert({
+        create: {
+            name: "J.LEE",
+            league: "A",
+            power: 8,
+            serve: 6,
+            accuracy: 5,
+            agility: 8,
+            volley: 2,
+        },
+        where: { id: 7 },
+        update: {},
+    });
+    const p8 = await prisma.player.upsert({
+        create: {
+            name: "D.KIM",
+            league: "A",
+            power: 6,
+            serve: 4,
+            accuracy: 5,
+            agility: 7,
+            volley: 4,
+        },
+        where: { id: 8 },
+        update: {},
+    });
+    const p9 = await prisma.player.upsert({
+        create: {
+            name: "SY.KANG",
+            league: "B",
+            power: 2,
+            serve: 2,
+            accuracy: 3,
+            agility: 2,
+            volley: 2,
+        },
+        where: { id: 9 },
+        update: {},
+    });
+    const p10 = await prisma.player.upsert({
+        create: {
+            name: "M.SON",
+            league: "B",
+            power: 6,
+            serve: 4,
+            accuracy: 3,
+            agility: 6,
+            volley: 2,
+        },
+        where: { id: 10 },
+        update: {},
+    });
 
-    console.log(currentSeason, p1, p2, p3, p4, p5, p6);
+    console.log(currentSeason, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 }
 main()
     .then(async () => {
