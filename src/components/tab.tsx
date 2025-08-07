@@ -80,7 +80,7 @@ export default function TabBar() {
             <Link
                 href='/profile'
                 className={`flex flex-col items-center gap-0.5 ${
-                    pathname === "/matches"
+                    pathname === "/profile"
                         ? "text-blue-600"
                         : "text-neutral-500"
                 }`}
