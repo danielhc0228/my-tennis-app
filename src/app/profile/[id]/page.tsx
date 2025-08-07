@@ -1,5 +1,6 @@
 import PlayerRadarChart from "@/components/radar-chart";
 import db from "@/lib/db";
+import { calculateAge } from "@/lib/util";
 import Image from "next/image";
 
 export default async function ProfileDetail(props: {
@@ -53,10 +54,20 @@ export default async function ProfileDetail(props: {
                                 League {player.league}
                             </span>
 
-                            <p className='mt-4 text-gray-600'>
-                                {/* {player.description ||  */}
-                                {"No description provided."}
-                            </p>
+                            <h2 className='text-lg font-semibold mt-4 text-gray-700'>
+                                D.O.B:{" "}
+                                {new Date(
+                                    player.dateOfBirth
+                                ).toLocaleDateString("en-AU", {
+                                    year: "numeric",
+                                    month: "numeric",
+                                    day: "numeric",
+                                })}
+                            </h2>
+
+                            <h2 className='text-lg font-semibold text-gray-700'>
+                                Age: {calculateAge(player.dateOfBirth)}
+                            </h2>
                         </div>
 
                         <div className='mt-6 grid grid-cols-2 gap-6 text-center'>
