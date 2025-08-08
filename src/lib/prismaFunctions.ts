@@ -133,6 +133,7 @@ export async function submitMatch(formData: FormData) {
 
     revalidatePath("/league-a");
     revalidatePath("/league-b");
+    revalidatePath("/matches");
     revalidatePath("/");
 
     let seasonAdvanced = false;
@@ -187,6 +188,7 @@ export async function submitMatch(formData: FormData) {
 
         revalidatePath("/league-a");
         revalidatePath("/league-b");
+        revalidatePath("/matches");
         revalidatePath("/");
     }
 
