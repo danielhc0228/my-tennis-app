@@ -64,3 +64,6 @@ npm run dev
 ```
 
 The app will be available at http://localhost:3000
+
+## Reference
+Profile images are created with [Dicebear]((https://www.dicebear.com/)).
