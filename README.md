@@ -25,12 +25,15 @@ Built with **Next.js** and **Prisma**, it provides an intuitive interface for up
 
 ---
 
-📸 Screenshots
-(screenshots to be added)
+📸 GIF of Web Application
+
+
+![chrome-capture-2025-08-11](https://github.com/user-attachments/assets/ef49c852-052b-4310-a2e8-d5c940043e27)
+
 
 ## 🚀 Getting Started
 
-### 1. Clone the repository
+### Clone the repository
 ```
 git clone https://github.com/yourusername/tennis-app.git
 cd tennis-app
