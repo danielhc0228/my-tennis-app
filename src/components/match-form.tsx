@@ -6,7 +6,7 @@ import { useEffect, useState, useTransition } from "react";
 interface IPlayer {
     id: number;
     name: string;
-    league: "A" | "B"; // or League enum
+    league: "A" | "B" | "NOT_AVAILABLE"; // or League enum
     seasonWins: number;
     seasonLosses: number;
     totalWins: number;
