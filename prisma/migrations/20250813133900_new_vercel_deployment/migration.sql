@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "League" AS ENUM ('A', 'B', 'NOT_AVAILABLE');
+ALTER TYPE "League" ADD VALUE 'NOT_AVAILABLE';
 
 -- CreateTable
 CREATE TABLE "Player" (
