@@ -9,11 +9,13 @@ generator client {
   output   = "../node_modules/.prisma/client"
 }
 
+// //for dev
 // datasource db {
-//   provider = "sqlite"
+//   provider = "postgresql"
 //   url      = env("DATABASE_URL")
 // }
 
+// for production
 datasource db {
   provider = "postgresql"
   url      = env("POSTGRES_URL")
