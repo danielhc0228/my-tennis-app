@@ -63,6 +63,15 @@ export default function MatchForm({
     const [unlocked, setUnlocked] = useState(false);
     const [password, setPassword] = useState("");
 
+    // For confirmation popup
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [formValues, setFormValues] = useState({
+        player1Id: null as number | null,
+        player2Id: null as number | null,
+        player1Score: null as number | null,
+        player2Score: null as number | null,
+    });
+
     useEffect(() => {
         const stored = localStorage.getItem("formUnlocked");
         if (stored === "true") {
@@ -129,7 +138,19 @@ export default function MatchForm({
     };
 
     return (
-        <form action={handleSubmit}>
+        <form
+            onSubmit={(e) => {
+                e.preventDefault();
+                const fd = new FormData(e.currentTarget);
+                setFormValues({
+                    player1Id: Number(fd.get("player1Id")),
+                    player2Id: Number(fd.get("player2Id")),
+                    player1Score: Number(fd.get("player1Score")),
+                    player2Score: Number(fd.get("player2Score")),
+                });
+                setShowConfirmModal(true); // open confirmation popup
+            }}
+        >
             <div className='grid grid-cols-1 gap-4 text-black justify-center'>
                 <div className='flex gap-5 items-center'>
                     <select
@@ -218,6 +239,66 @@ export default function MatchForm({
                 >
                     {isPending ? "Submitting..." : "Submit Match"}
                 </button>
+
+                {showConfirmModal && (
+                    <div className='fixed inset-0 bg-black/80 flex items-center justify-center z-50'>
+                        <div className='bg-white text-black p-6 rounded-lg shadow-lg w-80 text-center'>
+                            <h2 className='text-xl font-bold mb-4'>
+                                Confirm Match
+                            </h2>
+                            <p>
+                                {
+                                    players.find(
+                                        (p) => p.id === formValues.player1Id
+                                    )?.name
+                                }{" "}
+                                ({formValues.player1Score}){" vs "}
+                                {
+                                    players.find(
+                                        (p) => p.id === formValues.player2Id
+                                    )?.name
+                                }{" "}
+                                ({formValues.player2Score})
+                            </p>
+                            <div className='mt-6 flex gap-4 justify-center'>
+                                <button
+                                    type='button'
+                                    onClick={() => {
+                                        const fd = new FormData();
+                                        fd.append(
+                                            "player1Id",
+                                            String(formValues.player1Id)
+                                        );
+                                        fd.append(
+                                            "player2Id",
+                                            String(formValues.player2Id)
+                                        );
+                                        fd.append(
+                                            "player1Score",
+                                            String(formValues.player1Score)
+                                        );
+                                        fd.append(
+                                            "player2Score",
+                                            String(formValues.player2Score)
+                                        );
+                                        handleSubmit(fd); // call your existing submit function
+                                        setShowConfirmModal(false);
+                                    }}
+                                    className='bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600'
+                                >
+                                    Confirm
+                                </button>
+                                <button
+                                    type='button'
+                                    onClick={() => setShowConfirmModal(false)}
+                                    className='bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500'
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {showModal && (
                     <div
