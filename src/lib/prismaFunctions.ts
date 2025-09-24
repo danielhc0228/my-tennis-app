@@ -14,6 +14,16 @@ export async function getAPlayers() {
 
     return players;
 }
+export async function getBPlayers() {
+    const players = await db.player.findMany({
+        where: {
+            league: League.B,
+        },
+        orderBy: [{ seasonWins: "desc" }, { seasonPoints: "desc" }],
+    });
+
+    return players;
+}
 
 export async function getMatches() {
     const matches = await db.match.findMany({

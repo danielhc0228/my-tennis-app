@@ -1,15 +1,12 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../node_modules/.prisma/client"
 }
 
-// //for dev
+// for dev
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -36,8 +33,6 @@ model Player {
 
   seasonsWonA  Season[] @relation("WinnerA")
   seasonsLostA Season[] @relation("LoserA")
-  seasonsWonB  Season[] @relation("WinnerB")
-  seasonsLostB Season[] @relation("LoserB")
 
   dateOfBirth DateTime
 
@@ -79,14 +74,10 @@ model Season {
   number    Int      @unique
   winnerAId Int
   loserAId  Int
-  winnerBId Int
-  loserBId  Int
   createdAt DateTime @default(now())
 
   winnerA Player @relation("WinnerA", fields: [winnerAId], references: [id])
   loserA  Player @relation("LoserA", fields: [loserAId], references: [id])
-  winnerB Player @relation("WinnerB", fields: [winnerBId], references: [id])
-  loserB  Player @relation("LoserB", fields: [loserBId], references: [id])
 }
 
 enum League {
