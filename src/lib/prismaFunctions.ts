@@ -15,17 +15,6 @@ export async function getAPlayers() {
     return players;
 }
 
-export async function getBPlayers() {
-    const players = await db.player.findMany({
-        where: {
-            league: League.B,
-        },
-        orderBy: [{ seasonWins: "desc" }, { seasonPoints: "desc" }],
-    });
-
-    return players;
-}
-
 export async function getMatches() {
     const matches = await db.match.findMany({
         include: {
@@ -51,19 +40,13 @@ export async function shouldIncrementSeason(currentSeason: number) {
             league: "A",
         },
     });
-    const bPlayers = await db.player.findMany({
-        where: {
-            league: "B",
-        },
-    });
     const expectedAMatches = (aPlayers.length * (aPlayers.length - 1)) / 2;
-    const expectedBMatches = (bPlayers.length * (bPlayers.length - 1)) / 2;
     const playedMatches = await db.match.count({
         where: {
             season: currentSeason,
         },
     });
-    if (playedMatches < expectedAMatches + expectedBMatches) {
+    if (playedMatches < expectedAMatches) {
         return false; // Not all matches are played in both leaguess
     }
 
@@ -132,7 +115,6 @@ export async function submitMatch(formData: FormData) {
     }
 
     revalidatePath("/league-a");
-    revalidatePath("/league-b");
     revalidatePath("/matches");
     revalidatePath("/");
 
@@ -164,30 +146,10 @@ export async function submitMatch(formData: FormData) {
                 number: currentSeason,
                 winnerAId: summary.leagueA.first.id,
                 loserAId: summary.leagueA.last.id,
-                winnerBId: summary.leagueB.first.id,
-                loserBId: summary.leagueB.last.id,
-            },
-        });
-
-        await db.player.update({
-            where: {
-                id: summary.leagueA.last.id,
-            },
-            data: {
-                league: "B",
-            },
-        });
-        await db.player.update({
-            where: {
-                id: summary.leagueB.first.id,
-            },
-            data: {
-                league: "A",
             },
         });
 
         revalidatePath("/league-a");
-        revalidatePath("/league-b");
         revalidatePath("/matches");
         revalidatePath("/");
     }
@@ -196,19 +158,12 @@ export async function submitMatch(formData: FormData) {
 }
 
 export async function getSeasonSummary() {
-    const [aPlayers, bPlayers] = await Promise.all([
-        getAPlayers(),
-        getBPlayers(),
-    ]);
+    const aPlayers = await getAPlayers();
 
     return {
         leagueA: {
             first: aPlayers[0] ?? null,
             last: aPlayers[aPlayers.length - 1] ?? null,
-        },
-        leagueB: {
-            first: bPlayers[0] ?? null,
-            last: bPlayers[bPlayers.length - 1] ?? null,
         },
     };
 }
@@ -218,8 +173,6 @@ export async function getSeasonWinnerLoser() {
         include: {
             winnerA: true,
             loserA: true,
-            winnerB: true,
-            loserB: true,
         },
     });
 
