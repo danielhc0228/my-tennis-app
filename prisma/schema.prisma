@@ -57,6 +57,7 @@ model Match {
   player1Score Int
   player2Score Int
 
+  //add league League later for season advancing to only occur when league A matches are done.
   season    Int
   matchDate DateTime @default(now())
 

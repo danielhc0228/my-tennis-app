@@ -54,6 +54,8 @@ export async function shouldIncrementSeason(currentSeason: number) {
     const playedMatches = await db.match.count({
         where: {
             season: currentSeason,
+            player1: { league: "A" },
+            player2: { league: "A" },
         },
     });
     if (playedMatches < expectedAMatches) {
