@@ -21,7 +21,6 @@ interface LeagueSummary {
 
 interface SeasonSummary {
     leagueA: LeagueSummary;
-    leagueB: LeagueSummary;
 }
 
 interface IMatch {
@@ -314,11 +313,6 @@ export default function MatchForm({
                                     <strong>🏆 League A:</strong> 1st -{" "}
                                     {seasonSummary!.leagueA.first?.name}, Last -{" "}
                                     {seasonSummary!.leagueA.last?.name}
-                                </p>
-                                <p>
-                                    <strong>🏆 League B:</strong> 1st -{" "}
-                                    {seasonSummary!.leagueB.first?.name}, Last -{" "}
-                                    {seasonSummary!.leagueB.last?.name}
                                 </p>
                             </div>
                             <p className='text-sm mt-2'>

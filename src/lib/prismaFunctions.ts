@@ -145,6 +145,7 @@ export async function submitMatch(formData: FormData) {
             data: {
                 seasonWins: 0,
                 seasonLosses: 0,
+                seasonPoints: 0,
             },
         });
 

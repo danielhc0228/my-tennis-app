@@ -111,7 +111,7 @@ async function main() {
     const p8 = await prisma.player.upsert({
         create: {
             name: "D.KIM",
-            league: "A",
+            league: "B",
             power: 6,
             serve: 4,
             accuracy: 5,

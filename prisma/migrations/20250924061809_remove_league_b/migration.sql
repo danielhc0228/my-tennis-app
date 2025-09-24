@@ -1,5 +1,5 @@
 -- CreateEnum
-ALTER TYPE "League" ADD VALUE 'NOT_AVAILABLE';
+CREATE TYPE "League" AS ENUM ('A', 'B', 'NOT_AVAILABLE');
 
 -- CreateTable
 CREATE TABLE "Player" (
@@ -51,8 +51,6 @@ CREATE TABLE "Season" (
     "number" INTEGER NOT NULL,
     "winnerAId" INTEGER NOT NULL,
     "loserAId" INTEGER NOT NULL,
-    "winnerBId" INTEGER NOT NULL,
-    "loserBId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Season_pkey" PRIMARY KEY ("id")
@@ -78,9 +76,3 @@ ALTER TABLE "Season" ADD CONSTRAINT "Season_winnerAId_fkey" FOREIGN KEY ("winner
 
 -- AddForeignKey
 ALTER TABLE "Season" ADD CONSTRAINT "Season_loserAId_fkey" FOREIGN KEY ("loserAId") REFERENCES "Player"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Season" ADD CONSTRAINT "Season_winnerBId_fkey" FOREIGN KEY ("winnerBId") REFERENCES "Player"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Season" ADD CONSTRAINT "Season_loserBId_fkey" FOREIGN KEY ("loserBId") REFERENCES "Player"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -93,13 +93,6 @@ export default function MatchesPage({ allMatches, seasonData }: IMatchPage) {
                                 <p>🏆 1st: {s.winnerA.name}</p>
                                 <p>🥀 Last: {s.loserA.name}</p>
                             </div>
-                            <div>
-                                <p className='font-medium text-blue-600'>
-                                    League B
-                                </p>
-                                <p>🏆 1st: {s.winnerB.name}</p>
-                                <p>🥀 Last: {s.loserB.name}</p>
-                            </div>
                         </div>
                         <p className='text-sm text-gray-500 mt-2'>
                             Created at:{" "}
