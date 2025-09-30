@@ -5,12 +5,14 @@ import {
     TrophyIcon as SolidTrophyIcon,
     ClipboardDocumentListIcon as SolidClipboardDocumentListIcon,
     UserIcon as SolidUserIcon,
+    FaceSmileIcon as SolidFaceSmileIcon,
 } from "@heroicons/react/24/solid";
 import {
     HomeIcon as OutlineHomeIcon,
     TrophyIcon as OutlineTrophyIcon,
     ClipboardDocumentListIcon as OutlineClipboardDocumentListIcon,
     UserIcon as OutlineUserIcon,
+    FaceSmileIcon as OutlineFaceSmileIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -56,9 +58,9 @@ export default function TabBar() {
                 }`}
             >
                 {pathname === "/friendly" ? (
-                    <SolidTrophyIcon className='h-7 w-7' />
+                    <SolidFaceSmileIcon className='h-7 w-7' />
                 ) : (
-                    <OutlineTrophyIcon className='h-7 w-7' />
+                    <OutlineFaceSmileIcon className='h-7 w-7' />
                 )}
                 <span>Friendly</span>
             </Link>

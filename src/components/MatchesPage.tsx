@@ -68,11 +68,17 @@ export default function MatchesPage({ allMatches, seasonData }: IMatchPage) {
                     onChange={(e) => setSeason(Number(e.target.value))}
                     className='border border-gray-300 rounded-lg px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500'
                 >
-                    {seasons.map((s) => (
-                        <option key={s} value={s}>
-                            {`Season ${s}`}
-                        </option>
-                    ))}
+                    {seasons.map((s) =>
+                        s !== 0 ? (
+                            <option key={s} value={s}>
+                                {`Season ${s}`}
+                            </option>
+                        ) : (
+                            <option key={s} value={s}>
+                                {"Friendly"}
+                            </option>
+                        )
+                    )}
                 </select>
             </div>
 
