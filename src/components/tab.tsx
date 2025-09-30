@@ -18,7 +18,7 @@ import { usePathname } from "next/navigation";
 export default function TabBar() {
     const pathname = usePathname();
     return (
-        <div className='fixed bottom-0 mx-auto grid w-full grid-cols-4 border-t border-neutral-200 bg-white px-5 py-3'>
+        <div className='fixed bottom-0 mx-auto grid w-full grid-cols-5 border-t border-neutral-200 bg-white px-5 py-3'>
             <Link
                 href='/'
                 className={`flex flex-col items-center gap-0.5 ${
@@ -46,6 +46,21 @@ export default function TabBar() {
                     <OutlineTrophyIcon className='h-7 w-7' />
                 )}
                 <span>League A</span>
+            </Link>
+            <Link
+                href='/friendly'
+                className={`flex flex-col items-center gap-0.5 ${
+                    pathname === "/friendly"
+                        ? "text-blue-600"
+                        : "text-neutral-500"
+                }`}
+            >
+                {pathname === "/friendly" ? (
+                    <SolidTrophyIcon className='h-7 w-7' />
+                ) : (
+                    <OutlineTrophyIcon className='h-7 w-7' />
+                )}
+                <span>Friendly</span>
             </Link>
             {/* <Link
                 href='/league-b'
