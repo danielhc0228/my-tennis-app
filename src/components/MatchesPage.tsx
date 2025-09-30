@@ -26,12 +26,12 @@ interface IData {
     createdAt: Date;
     winnerAId: number;
     loserAId: number;
-    winnerBId: number;
-    loserBId: number;
+    // winnerBId: number;
+    // loserBId: number;
     winnerA: Player;
     loserA: Player;
-    winnerB: Player;
-    loserB: Player;
+    // winnerB: Player;
+    // loserB: Player;
 }
 
 interface IMatchPage {
