@@ -22,6 +22,7 @@ export default async function LeagueA() {
                     players={players}
                     matches={matches}
                     season={currentSeason}
+                    isFriendly={false}
                 />
             </div>
         </div>

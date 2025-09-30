@@ -1,6 +1,6 @@
 "use client";
 
-import { submitMatch } from "@/lib/prismaFunctions";
+import { submitFriendlyMatch, submitMatch } from "@/lib/prismaFunctions";
 import { useEffect, useState, useTransition } from "react";
 
 interface IPlayer {
@@ -128,12 +128,17 @@ export default function MatchForm({
 
     const handleSubmit = (formData: FormData) => {
         setIsPending(async () => {
-            const result = await submitMatch(formData);
-            setSeasonSummary(result.seasonSummary);
+            let result;
+            if (isFriendly) {
+                result = await submitFriendlyMatch(formData);
+            } else {
+                result = await submitMatch(formData);
+                setSeasonSummary(result.seasonSummary);
 
-            if (result?.seasonAdvanced) {
-                setNewSeason(result.newSeason);
-                setShowModal(true);
+                if (result?.seasonAdvanced) {
+                    setNewSeason(result.newSeason);
+                    setShowModal(true);
+                }
             }
         });
     };

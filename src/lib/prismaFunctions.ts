@@ -177,6 +177,35 @@ export async function submitMatch(formData: FormData) {
     return { success: true, seasonAdvanced, newSeason, seasonSummary: summary };
 }
 
+export async function submitFriendlyMatch(formData: FormData) {
+    const player1Id = Number(formData.get("player1Id"));
+    const player2Id = Number(formData.get("player2Id"));
+    const player1Score = Number(formData.get("player1Score"));
+    const player2Score = Number(formData.get("player2Score"));
+
+    const winnerId = player1Score > player2Score ? player1Id : player2Id;
+
+    // Store as season 0 (or null) so it's clear this is not part of any league season
+    await db.match.create({
+        data: {
+            player1Id,
+            player2Id,
+            player1Score,
+            player2Score,
+            winnerId,
+            season: 0, // use 0 or -1 to mark as friendly
+        },
+    });
+
+    // No player stats update
+    // No season increment
+
+    revalidatePath("/friendly");
+    revalidatePath("/matches"); // if you want to show friendlies in matches history
+
+    return { success: true };
+}
+
 export async function getSeasonSummary() {
     const aPlayers = await getAPlayers();
 
