@@ -194,6 +194,7 @@ export async function submitFriendlyMatch(formData: FormData) {
             player2Score,
             winnerId,
             season: 0, // use 0 or -1 to mark as friendly
+            isFriendly: true,
         },
     });
 
