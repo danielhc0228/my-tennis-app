@@ -4,6 +4,13 @@ import { revalidatePath } from "next/cache";
 import { League } from "@prisma/client";
 import db from "./db";
 
+export async function getAllPlayers() {
+    const players = await db.player.findMany({
+        orderBy: [{ seasonWins: "desc" }, { seasonPoints: "desc" }],
+    });
+
+    return players;
+}
 export async function getAPlayers() {
     const players = await db.player.findMany({
         where: {

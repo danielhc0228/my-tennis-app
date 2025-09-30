@@ -44,12 +44,14 @@ interface MatchFormProps {
     players: IPlayer[];
     matches: IMatch[];
     season: number;
+    isFriendly: boolean;
 }
 
 export default function MatchForm({
     players,
     matches,
     season,
+    isFriendly,
 }: MatchFormProps) {
     const [player1Id, setPlayer1Id] = useState<number | null>(null);
     const [isPending, setIsPending] = useTransition();
