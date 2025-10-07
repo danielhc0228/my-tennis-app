@@ -166,17 +166,23 @@ export default function MatchForm({
                         required
                     >
                         <option value=''>Player 1</option>
-                        {players
-                            .filter(
-                                (p) =>
-                                    p.seasonWins + p.seasonLosses !==
-                                    players.length - 1
-                            )
-                            .map((p) => (
-                                <option key={p.id} value={p.id}>
-                                    {p.name}
-                                </option>
-                            ))}
+                        {isFriendly
+                            ? players.map((p) => (
+                                  <option key={p.id} value={p.id}>
+                                      {p.name}
+                                  </option>
+                              ))
+                            : players
+                                  .filter(
+                                      (p) =>
+                                          p.seasonWins + p.seasonLosses !==
+                                          players.length - 1
+                                  )
+                                  .map((p) => (
+                                      <option key={p.id} value={p.id}>
+                                          {p.name}
+                                      </option>
+                                  ))}
                     </select>
                     <h1>{"VS"}</h1>
 
@@ -186,29 +192,37 @@ export default function MatchForm({
                         required
                     >
                         <option value=''>Player 2</option>
-                        {players
-                            .filter((p) => p.id !== player1Id)
-                            .filter(
-                                (p) =>
-                                    p.seasonWins + p.seasonLosses !==
-                                    players.length - 1
-                            )
-                            .filter((p) => {
-                                return !matches.some(
-                                    (m) =>
-                                        (m.season === season &&
-                                            m.player1Id === player1Id &&
-                                            m.player2Id === p.id) ||
-                                        (m.season === season &&
-                                            m.player1Id === p.id &&
-                                            m.player2Id === player1Id)
-                                );
-                            })
-                            .map((p) => (
-                                <option key={p.id} value={p.id}>
-                                    {p.name}
-                                </option>
-                            ))}
+                        {isFriendly
+                            ? players
+                                  .filter((p) => p.id !== player1Id)
+                                  .map((p) => (
+                                      <option key={p.id} value={p.id}>
+                                          {p.name}
+                                      </option>
+                                  ))
+                            : players
+                                  .filter((p) => p.id !== player1Id)
+                                  .filter(
+                                      (p) =>
+                                          p.seasonWins + p.seasonLosses !==
+                                          players.length - 1
+                                  )
+                                  .filter((p) => {
+                                      return !matches.some(
+                                          (m) =>
+                                              (m.season === season &&
+                                                  m.player1Id === player1Id &&
+                                                  m.player2Id === p.id) ||
+                                              (m.season === season &&
+                                                  m.player1Id === p.id &&
+                                                  m.player2Id === player1Id)
+                                      );
+                                  })
+                                  .map((p) => (
+                                      <option key={p.id} value={p.id}>
+                                          {p.name}
+                                      </option>
+                                  ))}
                     </select>
                 </div>
                 <div className='flex gap-10 items-center'>
